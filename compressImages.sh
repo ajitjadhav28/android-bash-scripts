@@ -30,6 +30,9 @@ if ! [[ $2 =~ $re ]] ; then
    exit 2
 fi
 
-mkdir "KB$2"
 
-parallel -j 8 convert {} -define jpeg:extent="$2kb" "KB$2/{}" ::: "*.$1"
+echo "Creating directory KB$2/ to store resized images.."
+mkdir "KB$2"
+echo "Starting compression..."
+parallel -j 8 convert {} -define jpeg:extent="$2kb" "KB$2"/{} ::: *.$1
+echo "Done!"
